@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { EnergyProvider } from "@/hooks/EnergyContext";
 
 import "./globals.css";
 
@@ -16,9 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <EnergyProvider>
-        <body>{children}</body>
-      </EnergyProvider>
+      <body>{children}</body>
     </html>
   );
 }
