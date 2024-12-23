@@ -1,19 +1,20 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import nacl from "tweetnacl";
+import { AccountInfo, UserResponseStatus } from "@aptos-labs/wallet-standard";
 import { toast } from "sonner";
+
 import { getAdapter } from "../misc/adapter";
+import { getAptos } from "../misc/aptos";
 import ActionStarryButton from "./ActionStarryButton";
 import StarryButton from "./StarryButton";
-import {
-  AccountInfo,
-  AptosSignMessageInput,
-  UserResponseStatus,
-} from "@aptos-labs/wallet-standard";
-import { getAptos } from "../misc/aptos";
-import nacl from "tweetnacl";
-import { Ed25519Signature, Hex } from "@aptos-labs/ts-sdk";
-const StickyHeader: React.FC = () => {
+
+interface StickyHeaderProps {
+  setButtonRef: (ref: React.RefObject<HTMLDivElement>) => void;
+}
+
+const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
   const [userAccount, setUserAccount] = React.useState<
+  
     AccountInfo | undefined
   >();
   useEffect(() => {
@@ -51,21 +52,17 @@ const StickyHeader: React.FC = () => {
     init();
     // Try eagerly connect
   }, []);
+
+  const bodyRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setButtonRef(bodyRef);
+  }, [setButtonRef]);
   return (
     <header className="fixed top-0 left-0 w-full bg-opacity-50  p-6 z-10">
       <div className="flex items-center justify-between">
-        <div>
-          {/* <Image
-            style={{ width: '200px', cursor: 'pointer' }}
-            src={NightlyLogo}
-            alt='logo'
-            onClick={() => {
-              // redirect to nightly.app
-              window.location.href = 'https://nightly.app'
-            }}
-          /> */}
-        </div>
-        <div className="flex flex-col space-y-4">
+        <div />
+        <div className="flex flex-col space-y-4" ref={bodyRef}>
           <StarryButton
             connected={userAccount?.address !== undefined}
             onConnect={async () => {
@@ -113,9 +110,12 @@ const StickyHeader: React.FC = () => {
                         ],
                       },
                     });
+
+                    // @ts-ignore
                     const signedTx = await adapter.signAndSubmitTransaction({
                       rawTransaction: transaction.rawTransaction,
                     });
+
                     if (signedTx.status !== UserResponseStatus.APPROVED) {
                       throw new Error("Transaction rejected");
                     }
@@ -146,6 +146,8 @@ const StickyHeader: React.FC = () => {
                         ],
                       },
                     });
+
+                    // @ts-ignore
                     const signedTx = await adapter.signTransaction({
                       rawTransaction: transaction.rawTransaction,
                     });

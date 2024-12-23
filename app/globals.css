@@ -2,48 +2,301 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://rsms.me/inter/inter.css');
+/* @import url('/font/OutfitRegular.ttf'); */
 
-* {
-  box-sizing: border-box;
+@font-face {
+  font-family: 'Outfit';
+  src: url('../public/font/OutfitRegular.ttf');
+  /* src: url('./fonts/OutfitRegular.ttf') format('trutype'); */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
+@keyframes fall {
+  0% {
+    transform: translateY(-150px);
+    /* Start position above the screen */
+    opacity: 1;
+    /* Start fully visible */
+  }
+
+  100% {
+    transform: translateY(100vh);
+    /* End position at the bottom of the screen */
+    opacity: 0;
+    /* Fade out as it falls */
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInMoveUp {
+  0% {
+    opacity: 0;
+    top: 40%;
+  }
+
+  40% {
+    opacity: 1;
+    top: 35%;
+  }
+
+  90% {
+    opacity: 1;
+    top: 30%;
+  }
+
+  100% {
+    opacity: 0;
+    top: 30%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #ffffff;
+    background-color: #ffffff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+body {
+  overflow: hidden;
+  /* Disable scrolling */
+  touch-action: manipulation;
   margin: 0;
   padding: 0;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  overflow: hidden;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  color: #ffffff;
+  background: linear-gradient(to bottom, #000000, #24556B);
+  font-family: 'Outfit', sans-serif;
+  width: 100vw;
 }
 
-body {
-  font-family: 'Inter', sans-serif;
+h1 {
+  color: #FFF;
+  text-align: center;
+  text-shadow: -4px -4px 4px rgb(255, 177, 33), 4px 4px 0px rgba(234, 41, 7, 0.5);
+  font-family: Outfit;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 106%;
+  /* 53px */
+  letter-spacing: -1.55px;
+}
+
+h3 {
+  color: #9E9E9E;
+
+  text-align: center;
+  font-family: Outfit;
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+
+  /* 34.5px */
+  letter-spacing: -0.253px;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+.heading {
+  color: #FFF;
+  text-align: center;
+  text-shadow: -4px -4px 4px rgba(255, 0, 0, 0.50), 4px 4px 0px rgba(7, 174, 234, 0.50);
+  font-family: Outfit;
+  font-size: 43px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 106%;
+  letter-spacing: -1.55px;
+}
+
+p {
+  color: #FFF;
+
+  font-family: Outfit;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 34.5px */
+  letter-spacing: -0.253px;
+}
+
+#ton-connect-button button {
+  background-color: #000000;
+}
+
+#ton-connect-button button:hover {
+  transform: none;
+}
+
+#ton-connect-button button div {
+  color: #BFBFBF;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  /* Adjust the width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  /* Color of the scroll thumb */
+  border-radius: 10px;
+
+  /* Roundness of the scroll thumb */
+  &:hover {
+    background: #555;
+    /* Color of the scroll thumb on hover */
+  }
+}
+
+.not-selectable {
+  user-select: none;
+  pointer-events: none;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  /* "auto" or "thin" */
+  scrollbar-color: #888 #f1f1f1;
+  /* thumb and track color */
+}
+
+
+.animate-fadeInMoveUp {
+  animation-name: fadeInMoveUp;
+  animation-duration: 0.5s;
+  /* Adjust duration as needed */
+  animation-fill-mode: both;
+  /* Keeps the final state */
 }
 
 #root {
-  background: white;
-  background: radial-gradient(
-      ellipse at -200% 60%,
-      rgba(209, 209, 209, 0.48) 22%,
-      rgba(182, 182, 182, 0) 71%
-    ),
-    linear-gradient(160deg, rgb(233, 233, 233), hsl(0, 0%, 100%) 100%);
-  overflow: auto;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  text-align: center;
+  min-width: 380PX;
+  min-height: 590px;
+  background: radial-gradient(68.4% 68.4% at 51.16% 53.22%, #1E4759 0%, #020304 100%);
 }
 
-body {
-  position: fixed;
-  overflow: hidden;
-  overscroll-behavior-y: none;
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica,
-    ubuntu, roboto, noto, segoe ui, arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
 }
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Add this CSS to your project */
+.coin {
+  position: absolute;
+  top: -30px;
+  /* Start position above the screen */
+  width: 30px;
+  /* Adjust size of the coin */
+  height: 30px;
+  background-color: gold;
+  /* Color of the coin */
+  border-radius: 50%;
+  /* Make it round */
+  animation: fall 2s ease-out forwards;
+  /* Animation duration and easing */
+}
+
