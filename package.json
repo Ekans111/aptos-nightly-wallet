@@ -4,7 +4,6 @@
   "description": "Template for Aptos Web3 Apps",
   "author": "Nightly Labs",
   "license": "MIT",
-  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,6 +14,7 @@
     "@aptos-labs/ts-sdk": "^1.9.1",
     "@aptos-labs/wallet-standard": "^0.0.11",
     "@nightlylabs/wallet-selector-aptos": "^0.1.15",
+    "@react-spring/core": "^9.7.5",
     "@react-spring/three": "9.1.1",
     "@react-spring/web": "9.1.1",
     "@react-three/drei": "4.1.8",
@@ -46,5 +46,5 @@
     "@types/three": "^0.156.0",
     "encoding": "^0.1.13"
   },
-  "packageManager": "yarn@4.3.0+sha512.1606bef7c84bc7d83b8576063de2fd08f7d69f9939015bed800f9585a002390268ecc777e9feeba7e26e9556aef6beaad4806968db2182ab5dd3e955ab3b9a0b"
+  "packageManager": "yarn@4.5.3"
 }
