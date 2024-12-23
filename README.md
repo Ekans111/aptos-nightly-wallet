@@ -1,64 +1,36 @@
-# 🌟 Aptos Web3 Template 🌟
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Elevate your Aptos blockchain development experience with this robust template powered by Next.js and integrated with [Nightly Connect](https://connect.nightly.app/docs/) for seamless wallet management. This template provides you with the core building blocks to jump-start your Aptos project!
+## Getting Started
 
-![Discord](https://img.shields.io/discord/7nhFHA6yZq?color=7389D8&logo=discord&logoColor=ffffff)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
-
----
-
-## 🚀 Quick Start
-
-Getting up and running is as easy as 1-2-3!
+First, run the development server:
 
 ```bash
-# Clone the repo
-git clone https://github.com/nightly-labs/aptos-web3-template.git
-
-# Navigate to project directory
-cd aptos-web3-template
-
-# Install dependencies
-npm/yarn/pnpm/bun install
-
-# Start development server
-npm/yarn/pnpm/bun install
-
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Now, open your browser and navigate to [http://localhost:3000](http://localhost:3000) to see your blazing fast Aptos app in action!
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
----
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## 🎨 Features
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-- 🛠 **Next.js Framework**: Build your dApp using the versatile and powerful Next.js.
-- 🎨 **Tailwind**: A best-in-class CSS framework that turns styling into an art.
-- 🔐 **Nightly Connect Integration**: Seamless wallet selection integrated for easy transactions.
-- 📋 **Prebuilt Flows**: This template comes with prebuilt flows for wallet connection and sample requests.
-- 🤝 **Community Support**: Have questions? Join our [Discord community](https://discord.com/invite/7nhFHA6yZq).
+## Learn More
 
----
+To learn more about Next.js, take a look at the following resources:
 
-## 🖖 Contribute
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Feel free to fork this repository and submit pull requests. To clone the repository and set up the development environment, you can follow the [Quick Start](#-quick-start) guide.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
----
+## Deploy on Vercel
 
-## 📬 Get in Touch
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-If you have questions or just want to chat with developers, [join our Discord community](https://discord.com/invite/7nhFHA6yZq).
-
----
-
-## 🎉 Have Fun and Happy Coding!
-
-Use this template to build something incredible! Enjoy coding!
-
-## 🙏 Credits
-
-This project wouldn't be possible without the help and contributions of:
-
-- [router-transitions](https://codesandbox.io/s/router-transitions-7kohn) for awesome 3d animation.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
