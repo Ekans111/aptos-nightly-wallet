@@ -1,16 +1,53 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { useRouter } from 'next/navigation'
+import React from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useTimer, formatTime } from "@/hooks/TimerContext";
 
 export default function Leaderboard() {
-  const router = useRouter()
+  const { time, resetTimer } = useTimer();
+
+  const router = useRouter();
+  const [isClaimed, setIsClaimed] = React.useState<boolean>(false);
+  const handleCount = () => {
+    if (isClaimed) {
+      toast.error("You have already claimed this reward.");
+      return;
+    }
+    setIsClaimed(true);
+    resetTimer();
+    toast.success("Your reward has been claimed");
+  };
+
+  React.useEffect(() => {
+    if (time <= 0 && isClaimed) {
+      setIsClaimed(false);
+      toast.success("You are avaliable to claim this reward.");
+    }
+  }, [time, isClaimed]);
+
   return (
-    <div className='w-full h-[100vh] gap-[5vh] flex flex-col justify-center items-center'>
-      <div className='p-4 rounded-md outline-offset-4 outline outline-1 outline-orange-300  border border-slate-500 shadow-md text-3xl'>MOON COIN BALANCE</div>
-      <div className='p-4 rounded-md outline-offset-4 outline outline-1 outline-orange-300  border border-slate-500 shadow-md text-3xl'>Claim 100$MOON</div>
-      <div className='p-4 rounded-md outline-offset-4 outline outline-1 outline-orange-300  border border-slate-500 shadow-md text-3xl'>Stake MOON COIN</div>
-      <div className='p-4 rounded-md outline-offset-4 outline outline-1 outline-orange-300  border border-slate-500 shadow-md text-3xl' onClick={() => router.push('/')}>LEADERBOARD</div>
+    <div className="w-full h-[100vh] gap-[5vh] flex flex-col justify-center items-center">
+      <button className="w-[70%] md:text-xl text-sm group flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 border-b-red-700 disabled:border-0 disabled:bg-red-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-red-800 active:text-gray-300 focus-visible:outline-red-500 sm:text-base dark:bg-gray-700 dark:border-gray-700 dark:border-b-gray-900">
+        MOON COIN BALANCE
+      </button>
+
+      <button
+        className="w-[70%] md:text-xl text-sm group flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 border-b-red-700 disabled:border-0 disabled:bg-red-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-red-800 active:text-gray-300 focus-visible:outline-red-500 sm:text-base dark:bg-gray-700 dark:border-gray-700 dark:border-b-gray-900"
+        onClick={handleCount}
+        disabled={isClaimed}
+      >
+        {isClaimed ? `Next: ${formatTime(time)}` : "Claim 100$MOON"}
+      </button>
+      <button className="w-[70%] md:text-xl text-sm group flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 border-b-red-700 disabled:border-0 disabled:bg-red-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-red-800 active:text-gray-300 focus-visible:outline-red-500 sm:text-base dark:bg-gray-700 dark:border-gray-700 dark:border-b-gray-900">
+        Stake MOON COIN
+      </button>
+      <button className="w-[70%] md:text-xl text-sm group flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 border-b-red-700 disabled:border-0 disabled:bg-red-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-red-800 active:text-gray-300 focus-visible:outline-red-500 sm:text-base dark:bg-gray-700 dark:border-gray-700 dark:border-b-gray-900"
+        onClick={() => router.push("/")}
+      >
+        LEADERBOARD
+      </button>
     </div>
-  )
+  );
 }

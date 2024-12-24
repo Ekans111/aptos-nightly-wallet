@@ -1,0 +1,1 @@
+export const logoSRC: string = '/image/logo.png'
