@@ -47,9 +47,9 @@ function Home() {
       </div>
       {/* Progress Bar and Limit */}
       <div>
-        <p className="w-full text-2xl">
+        <p className="w-full text-2xl text-[#121212]">
           Ready To Snag Some <br />{" "}
-          <span className="font-extrabold text-[#f0dc2a]">$GMOON</span> Token?
+          <span className="font-extrabold text-[#f84437]">$GMOON</span> Token?
         </p>
         {/* <div className="relative w-[340px] mt-6">
           <Link to='/boost' className="text-white flex flex-row items-center absolute right-4 bottom-[-20px]">
@@ -72,7 +72,7 @@ function Home() {
       {/* Bottom Menu Button */}
       <div
         onClick={handleTonButtonClick}
-        className="flex fixed justify-center items-center bottom-2 footer cursor-pointer w-[95%] h-[50px] bg-gradient-to-r from-[#f83b3b] to-[#f0dc2a] rounded-xl box-border px-4 active:scale-95 transition-all text-xl"
+        className="flex fixed justify-center items-center bottom-2 footer cursor-pointer w-[95%] h-[50px] bg-gradient-to-r from-[#f83b3b] to-[#5655ad] rounded-xl box-border px-4 active:scale-95 transition-all text-xl"
       >
         <img
           src="/image/icon/connect_wallet.svg"
@@ -84,10 +84,10 @@ function Home() {
 
       {modalVisible && (
         <>
-          <div className="fixed bottom-0 left-0 right-0 p-4 shadow-lg bg-[#1E3D4B] rounded-t-2xl flex flex-col justify-center gap-4 animate-slide-in-bottom transform transition-all max-h-[80vh] overflow-y-auto">
+          <div className="fixed bottom-0 left-0 right-0 p-4 shadow-lg bg-[#000000] bg-opacity-90 rounded-t-2xl flex flex-col justify-center gap-4 animate-slide-in-bottom transform transition-all max-h-[80vh] overflow-y-auto">
             <div className="flex justify-end w-full h-12">
               <button
-                className="text-black bg-[#334349] p-1 rounded-full"
+                className="text-black bg-[#ffffff] p-1 rounded-full"
                 onClick={closeWalletModal}
                 style={{
                   width: "30px",
@@ -104,12 +104,12 @@ function Home() {
                 />
               </button>
             </div>
-            <p className="text-3xl font-bold text-center mb-2">
+            <p className="text-3xl font-bold text-center mb-2 text-[#ffffff]">
               Please connect the wallet first!
             </p>
             <div
               onClick={handleTonButtonClick}
-              className="flex justify-center items-center bottom-2 footer cursor-pointer w-[95%] h-[50px] bg-gradient-to-r from-[#f83b3b] to-[#f0dc2a] rounded-xl box-border px-4 active:scale-95 transition-all text-xl"
+              className="flex justify-center items-center bottom-2 footer cursor-pointer w-[95%] h-[50px] bg-gradient-to-r from-[#f83b3b] to-[#5655ad] rounded-xl box-border px-4 active:scale-95 transition-all text-xl"
             >
               <img
                 src="/image/icon/connect_wallet.svg"

@@ -85,7 +85,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #FFC80F;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -109,15 +109,15 @@ body {
   place-items: center;
   min-width: 320px;
   color: #ffffff;
-  background: linear-gradient(to bottom, #000000, #24556B);
+  /* background: linear-gradient(to bottom, #000000, #24556B); */
   font-family: 'Outfit', sans-serif;
   width: 100vw;
 }
 
 h1 {
-  color: #FFF;
+  color: #121212;
   text-align: center;
-  text-shadow: -4px -4px 4px rgb(255, 177, 33), 4px 4px 0px rgba(234, 41, 7, 0.5);
+  text-shadow: -4px -4px 4px rgb(180, 207, 56), 4px 4px 0px rgba(234, 41, 7, 0.5);
   font-family: Outfit;
   font-size: 48px;
   font-style: normal;
