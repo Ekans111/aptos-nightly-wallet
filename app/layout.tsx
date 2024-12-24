@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { TimerProvider } from "@/hooks/TimerContext";
+import { Toaster } from "sonner";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <TimerProvider>
+          {children}
+          <Toaster position="bottom-left" richColors />
+        </TimerProvider>
+      </body>
     </html>
   );
 }
