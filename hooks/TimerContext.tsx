@@ -21,7 +21,7 @@ interface EnergyProviderProps {
 }
 export const TimerProvider: React.FC<EnergyProviderProps> = ({ children }) => {
   // Initial state (2 hours in seconds)
-  const initialTime = 10;
+  const initialTime = 2 * 60 * 60;
   const [time, setTime] = useState(initialTime);
 
   useEffect(() => {
