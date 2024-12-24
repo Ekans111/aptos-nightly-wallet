@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import StickyHeader from "@/component/StickyHeader";
 
 function Home() {
+  
 
   const [modalVisible, setModalVisible] = useState(false);
 

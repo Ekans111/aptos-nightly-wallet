@@ -1,11 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import nacl from "tweetnacl";
+import { useRouter } from "next/navigation";
 import { AccountInfo, UserResponseStatus } from "@aptos-labs/wallet-standard";
 import { toast } from "sonner";
 
 import { getAdapter } from "../misc/adapter";
-import { getAptos } from "../misc/aptos";
-import ActionStarryButton from "./ActionStarryButton";
 import StarryButton from "./StarryButton";
 
 interface StickyHeaderProps {
@@ -14,9 +12,11 @@ interface StickyHeaderProps {
 
 const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
   const [userAccount, setUserAccount] = React.useState<
-  
     AccountInfo | undefined
   >();
+
+  const router = useRouter();
+
   useEffect(() => {
     const init = async () => {
       const adapter = await getAdapter();
@@ -58,6 +58,14 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
   useEffect(() => {
     setButtonRef(bodyRef);
   }, [setButtonRef]);
+
+  // useEffect(() => {
+  //   if (userAccount && userAccount.address) {
+  //     console.log("userAccount", userAccount);
+  //     router.push("/leaderboard");
+  //   }
+  // }, [userAccount]);
+
   return (
     <header className="fixed top-0 left-0 w-full bg-opacity-50  p-6 z-10">
       <div className="flex items-center justify-between">
@@ -72,6 +80,7 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
                 if (response.status === UserResponseStatus.APPROVED) {
                   setUserAccount(response.args);
                   toast.success("Wallet connected!");
+                  router.push('/leaderboard');
                 } else {
                   toast.error("User rejected connection");
                 }
@@ -92,134 +101,6 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
             }}
             publicKey={userAccount?.address.toString()}
           />
-          {userAccount?.address && (
-            <>
-              <ActionStarryButton
-                onClick={async () => {
-                  const signTransaction = async () => {
-                    const adapter = await getAdapter();
-                    const aptos = getAptos();
-                    const transaction = await aptos.transaction.build.simple({
-                      sender: userAccount!.address.toString(),
-                      data: {
-                        function: "0x1::coin::transfer",
-                        typeArguments: ["0x1::aptos_coin::AptosCoin"],
-                        functionArguments: [
-                          "0x7d6735f1d1b158ea340f252e0d30c4ab5596fc12bbf5267f43ac45989b9fd520",
-                          100,
-                        ],
-                      },
-                    });
-
-                    // @ts-ignore
-                    const signedTx = await adapter.signAndSubmitTransaction({
-                      rawTransaction: transaction.rawTransaction,
-                    });
-
-                    if (signedTx.status !== UserResponseStatus.APPROVED) {
-                      throw new Error("Transaction rejected");
-                    }
-                  };
-                  toast.promise(signTransaction, {
-                    loading: "Signing Transaction...",
-                    success: (_) => {
-                      return `Transaction signed!`;
-                    },
-                    error: "Operation has been rejected!",
-                  });
-                }}
-                name="Sign and Submit"
-              ></ActionStarryButton>
-              <ActionStarryButton
-                onClick={async () => {
-                  const signTransaction = async () => {
-                    const adapter = await getAdapter();
-                    const aptos = getAptos();
-                    const transaction = await aptos.transaction.build.simple({
-                      sender: userAccount!.address.toString(),
-                      data: {
-                        function: "0x1::coin::transfer",
-                        typeArguments: ["0x1::aptos_coin::AptosCoin"],
-                        functionArguments: [
-                          "0x7d6735f1d1b158ea340f252e0d30c4ab5596fc12bbf5267f43ac45989b9fd520",
-                          100,
-                        ],
-                      },
-                    });
-
-                    // @ts-ignore
-                    const signedTx = await adapter.signTransaction({
-                      rawTransaction: transaction.rawTransaction,
-                    });
-                    if (signedTx.status !== UserResponseStatus.APPROVED) {
-                      throw new Error("Transaction rejected");
-                    }
-                  };
-                  toast.promise(signTransaction, {
-                    loading: "Signing Transaction...",
-                    success: (_) => {
-                      return `Transaction signed!`;
-                    },
-                    error: "Operation has been rejected!",
-                  });
-                }}
-                name="Sign Transaction"
-              ></ActionStarryButton>
-
-              <ActionStarryButton
-                onClick={async () => {
-                  const signMessage = async () => {
-                    const adapter = await getAdapter();
-                    const response = await adapter.signMessage({
-                      message: "I love Nightly",
-                      address: true,
-                      nonce: "YOLO",
-                    });
-                    if ("signature" in response) {
-                      if (!response.signature) {
-                        throw new Error("Message rejected");
-                      }
-                    } else {
-                      if (response.status !== UserResponseStatus.APPROVED) {
-                        throw new Error("Message rejected");
-                      }
-                    }
-
-                    if (response.status === UserResponseStatus.APPROVED) {
-                      try {
-                        const verified = nacl.sign.detached.verify(
-                          new TextEncoder().encode(response.args.fullMessage),
-                          new Uint8Array(
-                            // @ts-expect-error
-                            Object.values(response.args.signature.data.data)
-                          ),
-                          userAccount.publicKey.toUint8Array()
-                        );
-
-                        if (verified) {
-                          toast.success("Message verified!");
-                        } else {
-                          throw new Error("No verification");
-                        }
-                      } catch (error) {
-                        console.log(error);
-                        toast.error("Message verification failed!");
-                      }
-                    }
-                    // verify
-                  };
-                  toast.promise(signMessage, {
-                    loading: "Signing message...",
-                    success: (_) => {
-                      return `Message signed!`;
-                    },
-                    error: "Operation has been rejected!",
-                  });
-                }}
-                name="Sign Message"
-              ></ActionStarryButton>
-            </>
-          )}
         </div>
       </div>
     </header>
