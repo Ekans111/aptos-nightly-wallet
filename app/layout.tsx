@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { TimerProvider } from "@/hooks/TimerContext";
+import { TimerProvider } from "@/provider/TimerContext";
 import { Toaster } from "sonner";
 
 import "./globals.css";
+import { AddressProvider } from "@/provider/AddressContext";
 
 export const metadata: Metadata = {
   title: "Moonmoverz Telegram mini app",
@@ -17,10 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <TimerProvider>
-          {children}
-          <Toaster position="bottom-left" richColors />
-        </TimerProvider>
+        <AddressProvider>
+          <TimerProvider>
+            {children}
+            <Toaster position="bottom-left" richColors />
+          </TimerProvider>
+        </AddressProvider>
       </body>
     </html>
   );
