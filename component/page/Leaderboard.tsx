@@ -40,7 +40,7 @@ export default function Leaderboard() {
           onClick={handleCount}
           disabled={isClaimed}
         >
-          {isClaimed ? `Next: ${formatTime(time)}` : "Claim 100$MOON"}
+          {isClaimed ? `Claim 100$MOON: ${formatTime(time)}` : "MINT GMOON TOKEN"}
         </button>
       </div>
       <div className="w-[70%] h-10">
