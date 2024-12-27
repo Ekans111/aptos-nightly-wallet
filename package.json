@@ -13,6 +13,8 @@
     "@aptos-labs/wallet-standard": "^0.2.0",
     "@nightlylabs/wallet-selector-aptos": "^0.1.15",
     "@twa-dev/sdk": "^8.0.1",
+    "dotenv": "^16.4.7",
+    "install": "^0.13.0",
     "next": "13.5.8",
     "react": "^18",
     "react-dom": "^18",
