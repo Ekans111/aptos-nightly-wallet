@@ -1,6 +1,5 @@
 "use client";
 
-import WebApp from "@twa-dev/sdk";
 import React, {
   createContext,
   useContext,
@@ -29,10 +28,6 @@ export const useEnergy = () => {
 
 interface EnergyProviderProps {
   children: ReactNode;
-}
-
-if (typeof window !== "undefined") {
-  WebApp.ready();
 }
 
 export const EnergyProvider: React.FC<EnergyProviderProps> = ({ children }) => {

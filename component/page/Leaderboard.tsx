@@ -3,10 +3,13 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useTimer, formatTime } from "@/hooks/TimerContext";
+import { useTimer, formatTime } from "@/provider/TimerContext";
+import { useAddress } from "@/provider/AddressContext";
 
 export default function Leaderboard() {
   const { time, resetTimer } = useTimer();
+  const { address } = useAddress();
+  console.log("Wallet address------------------------", address);
 
   const router = useRouter();
   const [isClaimed, setIsClaimed] = React.useState<boolean>(false);

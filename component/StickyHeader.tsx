@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { getAdapter } from "../misc/adapter";
 import StarryButton from "./StarryButton";
 import { networkMap } from "../misc/utils";
+import { useAddress } from "@/provider/AddressContext";
 
 interface StickyHeaderProps {
   setButtonRef: (ref: React.RefObject<HTMLDivElement>) => void;
@@ -25,6 +26,8 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
   >();
 
   const router = useRouter();
+
+  const { setAddress } = useAddress();
 
   const changeNetworkBeforeAction = useCallback(
     async (network: NetworkInfo, adapter: NightlyConnectAptosAdapter) => {
@@ -64,6 +67,7 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
       adapter.on("connect", (accInfo) => {
         if (accInfo && "address" in accInfo) {
           setUserAccount(accInfo);
+          setAddress("address");
         }
       });
 
