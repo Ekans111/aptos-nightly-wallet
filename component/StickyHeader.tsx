@@ -57,6 +57,8 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
           const response = await adapter.connect();
           if (response.status === UserResponseStatus.APPROVED) {
             setUserAccount(response.args);
+            setAddress(response.args.address)
+            console.log("Approved network", response.args);
           }
         } catch (error) {
           await adapter.disconnect().catch(() => {});
@@ -67,7 +69,8 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
       adapter.on("connect", (accInfo) => {
         if (accInfo && "address" in accInfo) {
           setUserAccount(accInfo);
-          setAddress("address");
+          console.log("Connected", accInfo)
+          setAddress(accInfo.address);
         }
       });
 
@@ -79,6 +82,7 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
       adapter.on("accountChange", (accInfo) => {
         if (accInfo && "address" in accInfo) {
           setUserAccount(accInfo);
+          setAddress(accInfo.address);
         }
       });
     };
@@ -115,6 +119,7 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
                 );
                 if (response.status === UserResponseStatus.APPROVED) {
                   setUserAccount(response.args);
+                  setAddress(response.args.address)
                   const network = await adapter.network();
 
                   toast.success(`Wallet connected! network: ${network.name}`);
