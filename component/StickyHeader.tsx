@@ -17,7 +17,7 @@ interface StickyHeaderProps {
 }
 
 const MOVEMENT_CHAIN_IDS = [27, 177, 250];
-const REQUESTED_NETWORK = networkMap[27];
+const REQUESTED_NETWORK = networkMap[177];
 
 const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
   const [userAccount, setUserAccount] = React.useState<
