@@ -1,4 +1,4 @@
-import { logoSRC } from "@/misc/util";
+import { logoSRC } from "@/misc/utils";
 
 export default function page() {
   return (

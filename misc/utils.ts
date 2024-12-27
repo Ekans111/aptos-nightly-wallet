@@ -35,3 +35,5 @@ export const networkMap: Record<number, AptosChangeNetworkInput> = {
 };
 
 export const MOVEMENT_NETWORK = "Movement";
+
+export const logoSRC = "/image/move.jpg";
