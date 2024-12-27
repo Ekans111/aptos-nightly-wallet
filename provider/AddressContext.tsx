@@ -1,17 +1,17 @@
 "use client";
 
+import { AccountAddress } from "@aptos-labs/ts-sdk";
 import React, {
   createContext,
   useContext,
   useState,
   useEffect,
-  useRef,
   ReactNode,
 } from "react";
 
 interface AddressContextType {
-  address: string;
-  setAddress: React.Dispatch<React.SetStateAction<string>>;
+  address: AccountAddress;
+  setAddress: React.Dispatch<React.SetStateAction<AccountAddress>>;
 }
 
 const AddressContext = createContext<AddressContextType | undefined>(undefined);
@@ -35,8 +35,8 @@ export const AddressProvider: React.FC<AddressProviderProps> = ({
     const storedAddress =
       typeof window !== "undefined" && localStorage
         ? localStorage.getItem("address")
-        : "0";
-    return storedAddress || "";
+        : "0x0";
+    return AccountAddress.fromStringStrict(storedAddress || "0x0")
   });
 
   useEffect(() => {
