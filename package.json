@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aptos-labs/ts-sdk": "^1.33.1",
     "@aptos-labs/wallet-standard": "^0.2.0",
     "@nightlylabs/wallet-selector-aptos": "^0.1.15",
     "@twa-dev/sdk": "^8.0.1",

@@ -1,14 +1,23 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { AccountInfo, UserResponseStatus } from "@aptos-labs/wallet-standard";
+import {
+  AccountInfo,
+  NetworkInfo,
+  UserResponseStatus,
+} from "@aptos-labs/wallet-standard";
+import { NightlyConnectAptosAdapter } from "@nightlylabs/wallet-selector-aptos";
 import { toast } from "sonner";
 
 import { getAdapter } from "../misc/adapter";
 import StarryButton from "./StarryButton";
+import { networkMap } from "../misc/utils";
 
 interface StickyHeaderProps {
   setButtonRef: (ref: React.RefObject<HTMLDivElement>) => void;
 }
+
+const MOVEMENT_CHAIN_IDS = [27, 177, 250];
+const REQUESTED_NETWORK = networkMap[27];
 
 const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
   const [userAccount, setUserAccount] = React.useState<
@@ -16,6 +25,26 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
   >();
 
   const router = useRouter();
+
+  const changeNetworkBeforeAction = useCallback(
+    async (network: NetworkInfo, adapter: NightlyConnectAptosAdapter) => {
+      if (!MOVEMENT_CHAIN_IDS.includes(network.chainId)) {
+        const changeNetworkResponse = await adapter.changeNetwork(
+          REQUESTED_NETWORK
+        );
+        if (
+          changeNetworkResponse &&
+          changeNetworkResponse.status === UserResponseStatus.APPROVED
+        ) {
+          toast.success("Network changed!");
+        } else {
+          toast.error("User rejected network change");
+          throw new Error("Couldn't change network");
+        }
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     const init = async () => {
@@ -76,11 +105,16 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
             onConnect={async () => {
               const adapter = await getAdapter();
               try {
-                const response = await adapter.connect();
+                const response = await adapter.connect(
+                  undefined,
+                  REQUESTED_NETWORK
+                );
                 if (response.status === UserResponseStatus.APPROVED) {
                   setUserAccount(response.args);
-                  toast.success("Wallet connected!");
-                  router.push('/leaderboard');
+                  const network = await adapter.network();
+
+                  toast.success(`Wallet connected! network: ${network.name}`);
+                  router.push("/leaderboard");
                 } else {
                   toast.error("User rejected connection");
                 }
@@ -88,12 +122,23 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({ setButtonRef }) => {
                 toast.error("Wallet connection failed!");
                 // If error, disconnect ignore error
                 await adapter.disconnect().catch(() => {});
+                return;
+              }
+              try {
+                // check chainId
+                const chainId = await adapter.network();
+                await changeNetworkBeforeAction(chainId, adapter);
+              } catch (error) {
+                console.log(error);
               }
             }}
             onDisconnect={async () => {
               try {
+                console.log("start");
                 const adapter = await getAdapter();
+                console.log(adapter);
                 await adapter.disconnect();
+                console.log("done");
                 setUserAccount(undefined);
               } catch (error) {
                 console.log(error);
