@@ -34,15 +34,15 @@ export const AddressProvider: React.FC<AddressProviderProps> = ({
   const [address, setAddress] = useState<AccountAddress>(() => {
     // Lazy initialization function
     if (typeof window !== "undefined" && localStorage) {
-      const storedAddress = localStorage.getItem("address") || "0x000000000000000";
+      const storedAddress = localStorage.getItem("address") || "0x00000000000000000000000000000000";
       try {
         return AccountAddress.fromStringStrict(storedAddress);
       } catch (error) {
         console.error("Failed to parse account address:", error);
-        return AccountAddress.fromStringStrict("0x000000000000000");
+        return AccountAddress.fromStringStrict("0x00000000000000000000000000000000");
       }
     } else {
-      return AccountAddress.fromStringStrict("0x000000000000000");
+      return AccountAddress.fromStringStrict("0x00000000000000000000000000000000");
     }
   });
 
