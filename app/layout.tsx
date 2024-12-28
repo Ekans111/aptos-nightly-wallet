@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 
 import "./globals.css";
 import { AddressProvider } from "@/provider/AddressContext";
+import { AptosConfigProvider } from "@/provider/AptosConfig";
 
 export const metadata: Metadata = {
   title: "Moonmoverz Telegram mini app",
@@ -18,12 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AddressProvider>
-          <TimerProvider>
-            {children}
-            <Toaster position="bottom-left" richColors />
-          </TimerProvider>
-        </AddressProvider>
+        <AptosConfigProvider>
+          <AddressProvider>
+            <TimerProvider>
+              {children}
+              <Toaster position="bottom-left" richColors />
+            </TimerProvider>
+          </AddressProvider>
+        </AptosConfigProvider>
       </body>
     </html>
   );
