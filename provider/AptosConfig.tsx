@@ -42,14 +42,14 @@ interface AptosConfigProviderProps {
 
 
 export const AptosConfigProvider: React.FC<AptosConfigProviderProps> = ({children}) => {
-  const [network, setNetwork] = useState(Network.CUSTOM);
+  const [network, setNetwork] = useState(Network.TESTNET);
   // Initialize the Aptos client
   const [aptos, setAptos] = useState(
     new Aptos(
       new AptosConfig(
         { 
           network: network,
-          fullnode: FULLNODE_RPC,
+          // fullnode: FULLNODE_RPC,
         }
       )
     )
@@ -62,7 +62,7 @@ export const AptosConfigProvider: React.FC<AptosConfigProviderProps> = ({childre
     const config = new AptosConfig(
       { 
         network: network,
-        fullnode: FULLNODE_RPC, 
+        // fullnode: FULLNODE_RPC, 
       }
     );
 
