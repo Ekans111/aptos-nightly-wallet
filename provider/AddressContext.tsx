@@ -31,12 +31,19 @@ interface AddressProviderProps {
 export const AddressProvider: React.FC<AddressProviderProps> = ({
   children,
 }) => {
-  const [address, setAddress] = useState(() => {
-    const storedAddress =
-      typeof window !== "undefined" && localStorage
-        ? localStorage.getItem("address")
-        : "0x0";
-    return AccountAddress.fromStringStrict(storedAddress || "0x0")
+  const [address, setAddress] = useState<AccountAddress>(() => {
+    // Lazy initialization function
+    if (typeof window !== "undefined" && localStorage) {
+      const storedAddress = localStorage.getItem("address") || "0x0";
+      try {
+        return AccountAddress.fromStringStrict(storedAddress);
+      } catch (error) {
+        console.error("Failed to parse account address:", error);
+        return AccountAddress.fromStringStrict("0x0");
+      }
+    } else {
+      return AccountAddress.fromStringStrict("0x0");
+    }
   });
 
   useEffect(() => {
@@ -49,7 +56,7 @@ export const AddressProvider: React.FC<AddressProviderProps> = ({
     <AddressContext.Provider
       value={{
         address,
-        setAddress
+        setAddress,
       }}
     >
       {children}
