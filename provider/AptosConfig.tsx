@@ -13,6 +13,8 @@ import {
   Aptos,
   AptosConfig,
   Ed25519PrivateKey,
+  PrivateKey,
+  PrivateKeyVariants
 } from '@aptos-labs/ts-sdk';
 import { 
   OWNER_PRIVATE_KEY,
@@ -54,8 +56,9 @@ export const AptosConfigProvider: React.FC<AptosConfigProviderProps> = ({childre
       )
     )
   );
+  const formattedPrivateKey = PrivateKey.formatPrivateKey(OWNER_PRIVATE_KEY, 'ed25519' as PrivateKeyVariants);
 
-  const ownerPrivateKey = new Ed25519PrivateKey(OWNER_PRIVATE_KEY);
+  const ownerPrivateKey = new Ed25519PrivateKey(formattedPrivateKey);
   const ownerAccount = Account.fromPrivateKey({ privateKey: ownerPrivateKey });
 
   useEffect(() => {
